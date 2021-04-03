@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
       context: .
     environment: 
-      - ASPNETCORE_ENVIRONMENT
+      - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - 5000:80
   
@@ -29,6 +29,8 @@ services:
     image: dbeaver/cloudbeaver
     restart: always
     container_name: digital-invest-dbeaver
+    depends_on:
+      - digital-invest-postgres
     ports:
       - 8978:8978
   
