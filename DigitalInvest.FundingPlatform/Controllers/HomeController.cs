@@ -1,5 +1,7 @@
-﻿using Ev.DigitalInvest.FundingPlatform.Models;
+﻿using DigitalInvest.FundingPlatform.DataAccess;
+using Ev.DigitalInvest.FundingPlatform.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,15 +14,23 @@ namespace Ev.DigitalInvest.FundingPlatform.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _dbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext dbContext)
         {
             _logger = logger;
+            _dbContext = dbContext;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            return View();
+            var fundings = await _dbContext.Fundings
+                .OrderByDescending(f => f.ExpirationDate)
+                    .ThenBy(f => f.CreatedOn)
+                .ToListAsync();
+
+            return View(fundings);
         }
 
 

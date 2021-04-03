@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace DigitalInvest.FundingPlatform.DataAccess
 {
-    class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
         public DbSet<Funding> Fundings { get; set; }
 
@@ -21,6 +21,17 @@ namespace DigitalInvest.FundingPlatform.DataAccess
             base.OnModelCreating(modelBuilder);
 
             SeedData(modelBuilder);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            var server = "localhost";
+            var port = "5432";
+            var name = "postgres";
+            var user = "postgres";
+            var password = "postgres";
+
+            optionsBuilder.UseNpgsql($"Host={server};Port={port};Database={name};Username={user};Password={password}");
         }
 
         private static void SeedData(ModelBuilder modelBuilder)
