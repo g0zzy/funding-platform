@@ -4,6 +4,7 @@ using DigitalInvest.FundingPlatform.Services;
 using Ev.DigitalInvest.FundingPlatform.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -29,7 +30,20 @@ namespace Ev.DigitalInvest.FundingPlatform.Controllers
         }
 
 
-       [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<ActionResult> LoadEditFundingPopupAsync(string id)
+        {
+            try
+            {
+                var model = await _fundingService.GetAsync(id);
+                return PartialView("_EditFunding", model);
+            }
+            catch (Exception)
+            {
+                return PartialView("_EditFunding");
+            }
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

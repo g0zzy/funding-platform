@@ -1,48 +1,63 @@
-﻿
-@model IEnumerable<DigitalInvest.FundingPlatform.Models.FundingViewModel>
+﻿@model IEnumerable<DigitalInvest.FundingPlatform.Models.FundingViewModel>
 
 @{
     ViewData["Title"] = "Digital Invest Funding Platform";
 }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Target)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Investment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExpirationDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Target)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Investment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExpirationDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Invest</a>
-            </td>
-        </tr>
+@section Styles
+{
+    <style type="text/css">
+        .investBtn {
+            border: 1px solid white;
         }
-    </tbody>
-</table>
+    </style>
+}
+
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Target)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Investment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExpirationDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Target)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Investment)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExpirationDate)
+                    </td>
+                    <td>
+                        <button class="investBtn btn btn-primary" data-url="@Url.Action("LoadEditFundingPopup", "Home", new {id=item.Id.ToString()})" asp-action="LoadEditFundingPopup" asp-route-id="@item.Id.ToString()" data-toggle="modal" data-target="#fundingModal">
+                            Invest
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="modal" id="fundingModal" tabindex="-1" role="dialog" aria-labelledby="fundingModalLabel" aria-hidden="true"></div>
+
+</div>
