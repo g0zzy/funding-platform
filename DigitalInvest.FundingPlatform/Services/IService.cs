@@ -10,6 +10,7 @@ namespace DigitalInvest.FundingPlatform.Services
     public interface IService<T> where T : BaseViewModel
     {
         Task<IEnumerable<T>> GetAllAsync();
+        Task<T> GetAsync(string id);
         Task UpdateAsync(string id, T viewModel);
     }
 }

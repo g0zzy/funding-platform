@@ -55,5 +55,18 @@ namespace DigitalInvest.FundingPlatform.Services
                 throw e;
             }
         }
+
+        public async Task<FundingViewModel> GetAsync(string id)
+        {
+            try
+            {
+                var entity = await _repository.GetAsync(id);
+                return _mapper.Map<FundingViewModel>(entity);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }
