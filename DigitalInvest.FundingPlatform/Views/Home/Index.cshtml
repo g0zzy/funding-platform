@@ -1,5 +1,5 @@
 ﻿
-@model IEnumerable<DigitalInvest.FundingPlatform.DataAccess.Entitities.Funding>
+@model IEnumerable<DigitalInvest.FundingPlatform.Models.FundingViewModel>
 
 @{
     ViewData["Title"] = "Digital Invest Funding Platform";
@@ -26,20 +26,23 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Target)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Investment)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExpirationDate)
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Target)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Investment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpirationDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Invest</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

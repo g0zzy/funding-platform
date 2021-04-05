@@ -1,12 +1,10 @@
-﻿using DigitalInvest.FundingPlatform.DataAccess;
+﻿using DigitalInvest.FundingPlatform;
+using DigitalInvest.FundingPlatform.Models;
+using DigitalInvest.FundingPlatform.Services;
 using Ev.DigitalInvest.FundingPlatform.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Ev.DigitalInvest.FundingPlatform.Controllers
@@ -14,21 +12,18 @@ namespace Ev.DigitalInvest.FundingPlatform.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext _dbContext;
+        private readonly IService<FundingViewModel> _fundingService;
 
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext dbContext)
+        public HomeController(ILogger<HomeController> logger, IService<FundingViewModel> fundingService)
         {
-            _logger = logger;
-            _dbContext = dbContext;
+            _logger = logger.ThrowIfNull(nameof(logger));
+            _fundingService = fundingService.ThrowIfNull(nameof(fundingService));
         }
 
         public async Task<IActionResult> IndexAsync()
         {
-            var fundings = await _dbContext.Fundings
-                .OrderByDescending(f => f.ExpirationDate)
-                    .ThenBy(f => f.CreatedOn)
-                .ToListAsync();
+            var fundings = await _fundingService.GetAllAsync();
 
             return View(fundings);
         }

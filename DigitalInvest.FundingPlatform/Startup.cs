@@ -1,16 +1,13 @@
-using DigitalInvest.FundingPlatform.Data;
 using DigitalInvest.FundingPlatform.DataAccess;
+using DigitalInvest.FundingPlatform.Models;
+using DigitalInvest.FundingPlatform.Repository;
+using DigitalInvest.FundingPlatform.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Ev.DigitalInvest.FundingPlatform
 {
@@ -31,6 +28,10 @@ namespace Ev.DigitalInvest.FundingPlatform
             services.AddDbContext<ApplicationDbContext>(options =>
                options.UseNpgsql(connectionString));
 
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+            services.AddScoped(typeof(IService<FundingViewModel>), typeof(FundingService));
+
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
         }
 

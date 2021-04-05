@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace DigitalInvest.FundingPlatform.DataAccess.Entitities
+namespace DigitalInvest.FundingPlatform.Models
 {
-    public class Funding : BaseEntity
+    public class FundingViewModel : BaseViewModel
     {
         public string Name { get; set; }
 
