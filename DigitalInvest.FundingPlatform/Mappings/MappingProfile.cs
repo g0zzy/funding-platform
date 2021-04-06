@@ -19,7 +19,8 @@ namespace DigitalInvest.FundingPlatform.Mappings
                 .ForMember(dest => dest.Investment, opt => opt.Ignore())
                 .AfterMap((src, dest) => dest.Investment += src.Investment);
 
-            CreateMap<Funding, FundingViewModel>();
+            CreateMap<Funding, FundingViewModel>()
+                .ForMember(dest => dest.UserIds, opt => opt.MapFrom(src => src.UserFundings.Select(uf => uf.UserId)));
         }
     }
 }

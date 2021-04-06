@@ -2,9 +2,11 @@
 using DigitalInvest.FundingPlatform.Models;
 using DigitalInvest.FundingPlatform.Services;
 using Ev.DigitalInvest.FundingPlatform.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -14,7 +16,7 @@ namespace Ev.DigitalInvest.FundingPlatform.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IService<FundingViewModel> _fundingService;
-
+        const string SessionUserId = "_UserId";
 
         public HomeController(ILogger<HomeController> logger, IService<FundingViewModel> fundingService)
         {
@@ -22,14 +24,19 @@ namespace Ev.DigitalInvest.FundingPlatform.Controllers
             _fundingService = fundingService.ThrowIfNull(nameof(fundingService));
         }
 
+        [HttpGet]
         public async Task<IActionResult> IndexAsync()
         {
+            HttpContext.Session.SetString(SessionUserId, Guid.NewGuid().ToString());
+
+            ViewData["UserId"] = HttpContext.Session.GetString(SessionUserId);
+
             var fundings = await _fundingService.GetAllAsync();
 
             return View(fundings);
         }
 
-
+        [HttpGet]
         public async Task<ActionResult> LoadEditFundingPopupAsync(string id)
         {
             try
@@ -40,6 +47,22 @@ namespace Ev.DigitalInvest.FundingPlatform.Controllers
             catch (Exception)
             {
                 return PartialView("_EditFunding");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditFundingAsync(string id, [Bind("Id,Investment")]FundingViewModel model)
+        {
+            try
+            {
+                var userId = HttpContext.Session.GetString(SessionUserId);
+                model.UserIds.Add(userId);
+                await _fundingService.UpdateAsync(id, model);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
+            {
+                return RedirectToAction(nameof(Error));
             }
         }
 
