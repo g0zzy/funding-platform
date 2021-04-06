@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace Ev.DigitalInvest.FundingPlatform
 {
@@ -30,7 +31,7 @@ namespace Ev.DigitalInvest.FundingPlatform
 
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IService<FundingViewModel>), typeof(FundingService));
-
+            services.AddSession();
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
         }
@@ -53,7 +54,7 @@ namespace Ev.DigitalInvest.FundingPlatform
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

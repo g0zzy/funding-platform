@@ -14,5 +14,7 @@ namespace DigitalInvest.FundingPlatform.Models
         public double Investment { get; set; }
 
         public DateTime ExpirationDate { get; set; }
+
+        public ICollection<string> UserIds { get; set; } = new List<string>();
     }
 }

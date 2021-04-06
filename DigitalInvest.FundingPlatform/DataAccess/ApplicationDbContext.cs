@@ -10,6 +10,8 @@ namespace DigitalInvest.FundingPlatform.DataAccess
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Funding> Fundings { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserFunding> UserFundings { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -19,6 +21,16 @@ namespace DigitalInvest.FundingPlatform.DataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<UserFunding>().HasKey(uf => new { uf.FundingId, uf.UserId});
+            modelBuilder.Entity<UserFunding>()
+               .HasOne(bc => bc.User)
+               .WithMany(b => b.UserFundings)
+               .HasForeignKey(bc => bc.UserId);
+            modelBuilder.Entity<UserFunding>()
+                .HasOne(bc => bc.Funding)
+                .WithMany(c => c.UserFundings)
+                .HasForeignKey(bc => bc.FundingId);
 
             SeedData(modelBuilder);
         }

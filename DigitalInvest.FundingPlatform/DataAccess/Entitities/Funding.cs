@@ -13,5 +13,8 @@ namespace DigitalInvest.FundingPlatform.DataAccess.Entitities
         public double Investment { get; set; }
 
         public DateTime ExpirationDate { get; set; }
+
+        public ICollection<UserFunding> UserFundings { get; set; }
+
     }
 }

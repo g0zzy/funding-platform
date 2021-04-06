@@ -38,19 +38,31 @@ namespace DigitalInvest.FundingPlatform.Services
             }
         }
 
-        public async Task UpdateAsync(string id, FundingViewModel changedFunding)
+        public async Task UpdateAsync(string id, FundingViewModel changedModel)
         {
             try
             {
                 var entity = await _repository.GetAsync(id);
-                _mapper.Map(changedFunding, entity);
+                _mapper.Map(changedModel, entity);
+
+                entity.UserFundings ??= new List<UserFunding>();
+                foreach(var userId in changedModel.UserIds)
+                {
+                    var guidUserId = Guid.Parse(userId);
+                   
+                    entity.UserFundings.Add(
+                        new UserFunding
+                        {
+                            User = new User { Id = guidUserId, CreatedOn = DateTime.UtcNow },
+                            Funding = entity,
+                            FundingId = entity.Id
+                        }
+                    );
+                }
+
                 await _repository.UpdateAsync(entity);
             }
-            //catch(NotFoundException e)
-            //{
-
-            //}
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
