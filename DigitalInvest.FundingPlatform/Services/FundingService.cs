@@ -43,7 +43,7 @@ namespace DigitalInvest.FundingPlatform.Services
             try
             {
                 var entity = await _repository.GetAsync(id);
-                entity = _mapper.Map<FundingViewModel,Funding>(changedFunding);
+                _mapper.Map(changedFunding, entity);
                 await _repository.UpdateAsync(entity);
             }
             //catch(NotFoundException e)

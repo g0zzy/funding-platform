@@ -13,7 +13,13 @@ namespace DigitalInvest.FundingPlatform.Mappings
         public MappingProfile()
         {
             CreateMap<FundingViewModel, Funding>()
-                .ReverseMap();
+                .ForMember(dest => dest.Name, opt => opt.Ignore())
+                .ForMember(dest => dest.Target, opt => opt.Ignore())
+                .ForMember(dest => dest.ExpirationDate, opt => opt.Ignore())
+                .ForMember(dest => dest.Investment, opt => opt.Ignore())
+                .AfterMap((src, dest) => dest.Investment += src.Investment);
+
+            CreateMap<Funding, FundingViewModel>();
         }
     }
 }

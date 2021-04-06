@@ -21,4 +21,16 @@ $(document).ready(function () {
         $(this).removeData('bs.modal');
     });
 
+    $('#saveBtn').click(function () {
+        var formData = $('#fundingForm').serialize();
+  
+        $.ajax({
+            type: "POST",
+            url: "/Home/EditFunding/",
+            data: formData,
+            success: function () {
+                $('#fundingModal').modal('hide');
+            }
+        })
+    })
 });

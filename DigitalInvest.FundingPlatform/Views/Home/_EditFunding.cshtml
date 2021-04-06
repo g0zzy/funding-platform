@@ -8,6 +8,8 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         </div>
         <form asp-action="EditFunding" id="fundingForm">
+            @Html.HiddenFor(f => f.Id)
+
             <div class="modal-body">
                 <div class="form-group">
                     <label for="funding">Funding Name:</label>
@@ -15,11 +17,11 @@
                 </div>
                 <div class="form-group">
                     <label for="investment" class="col-2 col-form-label">Investment:</label>
-                    <input class="form-control" name="Investment" type="number" id="investment">
+                    <input class="form-control" name="Investment" value="@Model.Investment" type="number" id="investment">
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="save" type="submit" class="btn btn-primary">Save</button>
+                <button id="saveBtn" type="submit" class="btn btn-primary">Save</button>
             </div>
         </form>
     </div>
