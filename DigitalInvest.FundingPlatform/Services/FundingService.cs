@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DigitalInvest.FundingPlatform.DataAccess.Entitities;
 using DigitalInvest.FundingPlatform.Exceptions;
+using DigitalInvest.FundingPlatform.Extensions;
 using DigitalInvest.FundingPlatform.Models;
 using DigitalInvest.FundingPlatform.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -44,9 +45,9 @@ namespace DigitalInvest.FundingPlatform.Services
 
             catch (FormatException formatEx)
             {
-                throw new EntityNotFoundException(formatEx.Message);
+                throw new EntityNotFoundException($"Entity not found in database. {formatEx.Message}", formatEx);
             }
-            catch (Exception e)
+            catch (Exception e) // Can add more custom exceptions for other types of errors: mapping, db update etc.
             {
                 throw e;
             }

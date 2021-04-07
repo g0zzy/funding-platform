@@ -1,4 +1,5 @@
 ﻿using DigitalInvest.FundingPlatform.Exceptions;
+using DigitalInvest.FundingPlatform.Extensions;
 using DigitalInvest.FundingPlatform.Models;
 using DigitalInvest.FundingPlatform.Services;
 using Microsoft.AspNetCore.Http;

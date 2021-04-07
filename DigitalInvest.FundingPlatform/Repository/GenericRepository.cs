@@ -1,5 +1,6 @@
 ﻿using DigitalInvest.FundingPlatform.DataAccess;
 using DigitalInvest.FundingPlatform.DataAccess.Entitities;
+using DigitalInvest.FundingPlatform.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
