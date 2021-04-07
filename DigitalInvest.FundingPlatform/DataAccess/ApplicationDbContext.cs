@@ -23,14 +23,6 @@ namespace DigitalInvest.FundingPlatform.DataAccess
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<UserFunding>().HasKey(uf => new { uf.FundingId, uf.UserId});
-            modelBuilder.Entity<UserFunding>()
-               .HasOne(bc => bc.User)
-               .WithMany(b => b.UserFundings)
-               .HasForeignKey(bc => bc.UserId);
-            modelBuilder.Entity<UserFunding>()
-                .HasOne(bc => bc.Funding)
-                .WithMany(c => c.UserFundings)
-                .HasForeignKey(bc => bc.FundingId);
 
             SeedData(modelBuilder);
         }

@@ -53,7 +53,7 @@
                                 data-url="@Url.Action("LoadEditFundingPopup", "Home", new {id=item.Id.ToString()})"
                                 data-toggle="modal" 
                                 data-target="#fundingModal"
-                                 @(((item.UserIds.Contains(ViewData["UserId"]))) ? "disabled" : "")>
+                                 @(((item.Investment > 0)) ? "disabled" : "")>
                             Invest
                         </button>
                     </td>

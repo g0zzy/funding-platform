@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using DigitalInvest.FundingPlatform.DataAccess.Entitities;
+using DigitalInvest.FundingPlatform.Exceptions;
 using DigitalInvest.FundingPlatform.Models;
 using DigitalInvest.FundingPlatform.Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,20 +24,13 @@ namespace DigitalInvest.FundingPlatform.Services
 
         public async Task<IEnumerable<FundingViewModel>> GetAllAsync()
         {
-            try
-            {
-                var queryable = await _repository.GetAllAsync();
+            var queryable = await _repository.GetAllAsync();
 
-                var fundings = queryable.OrderByDescending(f => f.ExpirationDate)
-                            .ThenBy(f => f.CreatedOn)
-                          .ToList();
+            var fundings = queryable.OrderByDescending(f => f.ExpirationDate)
+                        .ThenBy(f => f.CreatedOn)
+                        .ToList();
 
-                return _mapper.Map<ICollection<FundingViewModel>>(fundings);
-            }
-            catch
-            {
-                throw;
-            }
+            return _mapper.Map<ICollection<FundingViewModel>>(fundings);
         }
 
         public async Task UpdateAsync(string id, FundingViewModel changedModel)
@@ -44,28 +39,18 @@ namespace DigitalInvest.FundingPlatform.Services
             {
                 var entity = await _repository.GetAsync(id);
                 _mapper.Map(changedModel, entity);
-
-                entity.UserFundings ??= new List<UserFunding>();
-                foreach(var userId in changedModel.UserIds)
-                {
-                    var guidUserId = Guid.Parse(userId);
-                   
-                    entity.UserFundings.Add(
-                        new UserFunding
-                        {
-                            User = new User { Id = guidUserId, CreatedOn = DateTime.UtcNow },
-                            Funding = entity,
-                            FundingId = entity.Id
-                        }
-                    );
-                }
-
                 await _repository.UpdateAsync(entity);
+            }
+
+            catch (FormatException formatEx)
+            {
+                throw new EntityNotFoundException(formatEx.Message);
             }
             catch (Exception e)
             {
                 throw e;
             }
+
         }
 
         public async Task<FundingViewModel> GetAsync(string id)
@@ -74,6 +59,10 @@ namespace DigitalInvest.FundingPlatform.Services
             {
                 var entity = await _repository.GetAsync(id);
                 return _mapper.Map<FundingViewModel>(entity);
+            }
+            catch (FormatException ex)
+            {
+                throw new EntityNotFoundException(ex.Message);
             }
             catch (Exception e)
             {

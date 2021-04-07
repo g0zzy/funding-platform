@@ -8,9 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
 
-namespace Ev.DigitalInvest.FundingPlatform
+namespace DigitalInvest.FundingPlatform
 {
     public class Startup
     {
@@ -31,7 +30,7 @@ namespace Ev.DigitalInvest.FundingPlatform
 
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IService<FundingViewModel>), typeof(FundingService));
-            services.AddSession();
+
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
         }
@@ -49,12 +48,17 @@ namespace Ev.DigitalInvest.FundingPlatform
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            //To test exception handler on Development env:
+            //app.UseExceptionHandler("/Home/Error");
+
+            //Global exception handling: The middleware added with this will pick up any matching status codes being returned and then re-execute the pipeline.
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

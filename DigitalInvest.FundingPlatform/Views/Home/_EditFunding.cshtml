@@ -16,8 +16,10 @@
                     <p>@Model.Name</p>
                 </div>
                 <div class="form-group">
-                    <label for="investment" class="col-2 col-form-label">Investment:</label>
-                    <input class="form-control" name="Investment" value="@Model.Investment" type="number" id="investment">
+                    <label asp-for="Investment" class="col-2 control-label"></label>
+                    <input asp-for="Investment" class="form-control" />
+                    <span asp-validation-for="Investment" class="text-danger"></span>
+
                 </div>
             </div>
             <div class="modal-footer">
@@ -26,3 +28,5 @@
         </form>
     </div>
 </div>
+
+@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }

@@ -26,13 +26,15 @@ namespace DigitalInvest.FundingPlatform.Repository
 
         public async Task<T> GetAsync(string id)
         {
+            id.ThrowIfNull(nameof(id));
+
             if (Guid.TryParse(id, out var newGuid))
             {
                 return await _entities.SingleOrDefaultAsync(e => e.Id.Equals(newGuid));
             }
             else
             {
-                throw new Exception($"Entity id: {id} not found in database.");
+                throw new FormatException($"Invalid id: {id}.");
             }
         }
 
