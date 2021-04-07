@@ -1,4 +1,5 @@
 ﻿
+
 # funding-platform
 
 # Table of Contents
@@ -64,8 +65,10 @@ Good to go!
 Run your application on Visual Studio. 
 
 ## Requirements [↑](#table-of-contents)
-•	User can see a list of fundings with investment required;
-•	User click on a funding and submit an amount (between 100€ and 10.000€) for a funding;
+•	User can see a list of fundings with investment required.
+
+•	User click on a funding and submit an amount (between 100€ and 10.000€) for a funding.
+
 •	Can only submit an amount once per funding.
 
 ## Solution [↑](#table-of-contents)
@@ -78,22 +81,22 @@ Due to time constraints, this architecture wasn't adopted.
 
 Some of these could not be implemented, because of time constraints and some issues being faced. 
 
-Tests: 
+**Tests:** 
 Unit tests should be implemented. 
 
-Authentication: 
+**Authentication:**
 Identity Server could be used to manage users easily. Jwt Token based authentication could be done - a custom authentication attribute could be implemented. 
 
-Many to many relationship:
+**Many to many relationship:**
 Many to many relationship between user and fundings because a funding can have many users and a user can invest in many fundings (in the future).
 
-Dockerize the app:
+**Dockerize the app:**
 Only the database part was dockerized for now. The application could also be brought up with the database services.
 
-Exception handling: 
+**Exception handling:** 
 Global exception handling can be improved.
 
-Logging: 
+**Logging:** 
 Logging was not implemented.
 
 ## Pain Points [↑](#table-of-contents)
