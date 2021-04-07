@@ -38,7 +38,7 @@ namespace DigitalInvest.FundingPlatform.Controllers
                 return PartialView("_EditFunding", model);
             }
 
-            return RedirectToAction(nameof(Index));
+            return BadRequest(ModelState);
         }
 
         [HttpPost]
@@ -50,7 +50,7 @@ namespace DigitalInvest.FundingPlatform.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return RedirectToAction(nameof(Index));
+            return BadRequest(ModelState);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
