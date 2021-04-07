@@ -55,12 +55,31 @@ Funding Platform is a .NET Core MVC web application that displays fundings for a
 4. Open terminal or Package Manager Console in order to create the database. Run:
 `dotnet ef database update` or `update-database` respectively.
 
-5. If you want to connect to the database. Go to localhost:8978 to use CloudBeaver. Follow the instructions there.
-db user and password are both `postgres`.
+5. If you want to connect to the database. Go to localhost:8978 to use CloudBeaver. 
+
+Click "Next" and enter admin config info - you can enter password as the password here.
+
+Then add database connection by clicking on `localhost`. 
+
+<img src="assets/cloudbeaver-setup1.PNG" width=650>
+
+Then fill in configuration info by adding username and password both as `postgres`. Click "Create".
+
+<img src="assets/cloudbeaver-setup2.PNG" width=650>
+
+Now click "Next".
+
+<img src="assets/cloudbeaver-setup3.PNG" width=650>
+
+And finish setting up by clicking "Finish".
+
+Your database is ready to be connected. Click on "PostgreSQL" and you'll be prompted to enter user name and password, which are both `postgres`.
+
+<img src="assets/cloudbeaver-setup4.PNG" width=650>
+
+Voila! 
 
 Go to `postgres` > `Schemas` > `public` > `Tables` > `Fundings` and you should see some data.
-
-Good to go! 
 
 <img src="assets/cloudbeaver.PNG" width=650>
 
@@ -68,6 +87,8 @@ Good to go!
 Then run your application on Visual Studio.
 
 <img src="assets/app.PNG" width=650>
+
+Initially the investments will all be "0" - after you've invested in some, it will look like above.
 
 ## Requirements [↑](#table-of-contents)
 •	User can see a list of fundings with investment required.
