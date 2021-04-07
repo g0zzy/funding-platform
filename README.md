@@ -62,7 +62,12 @@ Go to `postgres` > `Schemas` > `public` > `Tables` > `Fundings` and you should s
 
 Good to go! 
 
-Run your application on Visual Studio. 
+<img src="assets/cloudbeaver.PNG" width=650>
+
+
+Then run your application on Visual Studio.
+
+<img src="assets/app.PNG" width=650>
 
 ## Requirements [↑](#table-of-contents)
 •	User can see a list of fundings with investment required.
