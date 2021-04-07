@@ -3,14 +3,14 @@
 # funding-platform
 
 # Table of Contents
-* [Overview](#Overview)
-* [Technologies Used](#Technologies-Used)
-* [Solution Structure](#Solution-Structure)
-* [Local Machine Setup](#Local-Machine-Setup)
-* [Requirements](#Requirements)
-* [Solution](#Solution)
-* [Improvements](#Improvements)
-* [Pain Points](#Pain-Points)
+* [Overview](#overview-)
+* [Technologies Used](#technologies-used-)
+* [Solution Structure](#solution-structure-)
+* [Local Machine Setup](#local-machine-setup-)
+* [Requirements](#requirements-)
+* [Solution](#solution-)
+* [Improvements](#improvements-)
+* [Pain Points](#pain-points-)
 
 
 ## Overview [↑](#table-of-contents)
@@ -49,15 +49,14 @@ Funding Platform is a .NET Core MVC web application that displays fundings for a
 1. Install VS2019, [.NET Core SDK](https://dotnet.microsoft.com/download/dotnet/3.1) and [docker](https://docs.docker.com/engine/install/) along with [docker compose](https://docs.docker.com/get-started/08_using_compose/).
 2. Clone the repository. 
 3. Go to DigitalInvest.FundingPlatform folder and open cmd/git bash to run the following command: 
-
 `docker-compose up`
 
 4. Open terminal or Package Manager Console in order to create the database. Run:
 `dotnet ef database update` or `update-database` respectively.
 
-5. If you want to connect to the database. Go to localhost:8978 to use CloudBeaver. 
+5. If you want to connect to the database, go to `localhost:8978` to use CloudBeaver. 
 
-Click "Next" and enter admin config info - you can enter password as the password here.
+Click "Next" and enter admin config info - you can enter `password` as the password here.
 
 Then add database connection by clicking on `localhost`. 
 
@@ -67,7 +66,7 @@ Then fill in configuration info by adding username and password both as `postgre
 
 <img src="assets/cloudbeaver-setup2.PNG" width=650>
 
-Now click "Next".
+In the next screen, click "Next".
 
 <img src="assets/cloudbeaver-setup3.PNG" width=650>
 
